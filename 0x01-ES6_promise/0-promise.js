@@ -6,5 +6,4 @@ function getResponseFromAPI() {
     // reject(new Error("Failed to get response from API"));
   });
 }
-
 export default getResponseFromAPI;

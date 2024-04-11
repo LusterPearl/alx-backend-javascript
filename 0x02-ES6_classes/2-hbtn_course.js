@@ -19,12 +19,10 @@ class HolbertonCourse {
     }
   }
 
-  // Getter for length attribute
   get length() {
     return this._length;
   }
 
-  // Setter for length attribute
   set length(newLength) {
     if (typeof newLength === 'number') {
       this._length = newLength;

@@ -13,7 +13,6 @@ export class HolbertonClass {
   }
 }
 
-// StudentHolberton class definition
 export class StudentHolberton {
   constructor(firstName, lastName, holbertonClass) {
     this._firstName = firstName;

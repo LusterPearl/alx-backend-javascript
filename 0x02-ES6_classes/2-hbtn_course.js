@@ -7,25 +7,25 @@ class HolbertonCourse {
 
   // Getter for name attribute
   get name() {
-    return this._name;
+    return this.name;
   }
 
   // Setter for name attribute
   set name(newName) {
     if (typeof newName === 'string') {
-      this._name = newName;
+      this.name = newName;
     } else {
       throw new TypeError('Name must be a string');
     }
   }
 
   get length() {
-    return this._length;
+    return this.length;
   }
 
   set length(newLength) {
     if (typeof newLength === 'number') {
-      this._length = newLength;
+      this.length = newLength;
     } else {
       throw new TypeError('Length must be a number');
     }
@@ -33,12 +33,12 @@ class HolbertonCourse {
 
   // Getter for students attribute
   get students() {
-    return this._students;
+    return this.students;
   }
 
   // Setter for students attribute
   set students(newStudents) {
-    this._students = newStudents;
+    this.students = newStudents;
   }
 }
 

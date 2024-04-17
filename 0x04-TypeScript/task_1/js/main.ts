@@ -50,9 +50,6 @@ const printTeacher: printTeacherFunction = (firstName, lastName) => {
     return `${firstName.charAt(0)}. ${lastName}`;
   };
 
-// Test the function
-console.log(printTeacher('Paul', 'Peter'));
-
 // Define the interface for the StudentClass construcrtor
 interface StudentClassConstructor {
     new(firstName: string, lastName: string): StudentClass;
@@ -76,9 +73,3 @@ const StudentClass: StudentClassConstructor = class implements StudentClass {
       return this.firstName;
     }
   };
-
-  // Test the class
-const student = new StudentClass('John', 'Doe');
-console.log(student.workOnHomework()); // Output: Currently working
-console.log(student.displayName());
-  

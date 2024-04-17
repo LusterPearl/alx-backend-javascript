@@ -27,7 +27,7 @@ const studentList: Student[] = [student1, student2];
 // Render a table using Vanilla Javascript
 const table = document.createElement("table");
  
-studentsList.forEach((student)) => {
+studentsList.forEach((student) => {
     const row = table.insertRow();
     const cell1 = row.insertCell();
     const cell2 = row.insertCell();

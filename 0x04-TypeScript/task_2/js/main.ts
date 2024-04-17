@@ -19,7 +19,7 @@ interface TeacherInterface {
     }
 
     getCoffeeBreak(): string {
-        return 'Getting a coffe break';
+        return 'Getting a coffee break';
     }
 
     workDirectorTasks(): string {
@@ -28,7 +28,7 @@ interface TeacherInterface {
 }
 
 // Implenent the teacher class
-class Teacher implemnts TeacherInterface {
+class Teacher implements TeacherInterface {
     workFromHome(): string {
         return 'Cannot work from home';
     }
@@ -44,14 +44,14 @@ class Teacher implemnts TeacherInterface {
 
 // Create a function createEmployee
 function createEmployee(salary: number | string): Director | Teacher {
-   if (typeof salary === 'number' && salary < 500) {
-    return new Teacher();
-   } else {
-     return new Director();
-    } 
+    if (typeof salary === 'number' && salary < 500) {
+        return new Teacher();
+    } else {
+        return new Director();
+    }
 }
 
-// Function isDirector - type predicate
+// Function isDirector type predicate
 function isDirector(employee: Director | Teacher): employee is Director {
     return (employee as Director).workDirectorTasks !== undefined;
   }

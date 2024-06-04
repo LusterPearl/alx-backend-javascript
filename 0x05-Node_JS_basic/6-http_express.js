@@ -1,5 +1,6 @@
 // using express for nodejs
 const express = require('express');
+const { module } = require('../webpack.config');
 
 // Create the Express app
 const app = express();
@@ -14,3 +15,5 @@ const port = 1245;
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}/`);
 });
+
+module.exports = app;

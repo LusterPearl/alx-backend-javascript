@@ -1,37 +1,36 @@
+// Display the welcome message
 const fs = require('fs');
 
 function countStudents(path) {
   return new Promise((resolve, reject) => {
-    // Read the file asynchronously
     fs.readFile(path, 'utf8', (err, data) => {
       if (err) {
-        // Reject the promise with an error if the file can't be read
         reject(new Error('Cannot load the database'));
         return;
       }
-        // Process the file data
-        const lines = data.split('\n').filter((line) => line.trim() !== '');
-        const numberOfStudents = lines.length - 1;
-        console.log(`Number of students: ${numberOfStudents}`);
 
-        const fields = {};
+      const lines = data.split('\n');
+      const students = lines.slice(1).filter((line) => line.trim() !== '');
 
-        lines.slice(1).forEach((line) => {
-          const [firstname, lastname, age, field] = line.split(',');
+      const numberOfStudents = students.length;
+      console.log(`Number of students: ${numberOfStudents}`);
 
-          if (!fields[field]) {
-            fields[field] = [];
-          }
-
-          fields[field].push(firstname);
-        });
-
-        for (const [field, students] of Object.entries(fields)) {
-          console.log(`Number of students in ${field}: ${students.length}. List: ${students.join(', ')}`);
+      const fields = {};
+      students.forEach((student) => {
+        const [firstname, , , field] = student.split(',');
+        if (!fields[field]) {
+          fields[field] = [];
         }
+        fields[field].push(firstname);
+      });
 
-        resolve();
+      for (const field in fields) {
+        if (fields.hasOwnProperty(field)) {
+          console.log(`Number of students in ${field}: ${fields[field].length}. List: ${fields[field].join(', ')}`);
+        }
       }
+
+      resolve();
     });
   });
 }

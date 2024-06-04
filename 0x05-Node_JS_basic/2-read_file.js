@@ -1,3 +1,4 @@
+// Display the welcome message
 const fs = require('fs');
 
 function countStudents(path) {

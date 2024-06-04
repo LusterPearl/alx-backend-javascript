@@ -7,15 +7,16 @@ function countStudents(path) {
       if (err) {
         // Reject the promise with an error if the file can't be read
         reject(new Error('Cannot load the database'));
-      } else {
+        return;
+      }
         // Process the file data
-        const lines = data.split('\n').filter(line => line.trim() !== '');
-        const numberOfStudents = lines.length - 1; // Exclude the header line
+        const lines = data.split('\n').filter((line) => line.trim() !== '');
+        const numberOfStudents = lines.length - 1;
         console.log(`Number of students: ${numberOfStudents}`);
 
         const fields = {};
-        
-        lines.slice(1).forEach(line => {
+
+        lines.slice(1).forEach((line) => {
           const [firstname, lastname, age, field] = line.split(',');
 
           if (!fields[field]) {

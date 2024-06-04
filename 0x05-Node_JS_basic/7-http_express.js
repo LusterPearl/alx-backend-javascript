@@ -1,31 +1,65 @@
 const express = require('express');
-const countStudents = require('./3-read_file_async');
+const fs = require('fs').promises;
 
-// Create the Express app
+function getStudents(data) {
+  const lines = data.split('\n');
+  const students = [];
+  for (let i = 1; i < lines.length; i += 1) {
+    if (lines[i] !== '') {
+      students.push(lines[i]);
+    }
+  }
+  return students;
+}
+
+function countFields(students) {
+  const fields = {};
+  let info; let name; let field;
+  students.forEach((student) => {
+    [name, ...info] = student.split(',');
+    field = info[info.length - 1];
+    if (!(field in fields)) {
+      fields[field] = [];
+    }
+    fields[field].push(name);
+  });
+  return fields;
+}
+
+async function countStudents(path) {
+  try {
+    const data = await fs.readFile(path, { encoding: 'utf-8' });
+    const students = getStudents(data);
+    let message;
+    message = `Number of students: ${students.length}`;
+    const fields = countFields(students);
+    Object.keys(fields).forEach((field) => {
+      message += `\nNumber of students in ${field}: ${fields[field].length}. `;
+      message += `List: ${fields[field].join(', ')}`;
+    });
+    return message;
+  } catch (err) {
+    return 'Cannot load the database';
+  }
+}
+
 const app = express();
 
-// Define a route for the root path
 app.get('/', (req, res) => {
+  res.type('text/plain');
   res.send('Hello Holberton School!');
 });
 
-// Define a route for /students
 app.get('/students', (req, res) => {
-  const database = process.argv[2];
-
-  countStudents(database)
-    .then(() => {
-      res.send('This is the list of our students\n');
-    })
-    .catch(() => {
-      res.status(500).send('Not Found');
+  res.type('text/plain');
+  let message = 'This is the list of our students\n';
+  countStudents(process.argv[2])
+    .then((students) => {
+      message += students;
+      res.send(message);
     });
 });
 
-// Start the server on port 1245
-const port = 1245;
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}/`);
-});
+app.listen(1245);
 
 module.exports = app;

@@ -1,22 +1,16 @@
-// display the welocm,e message
-console.log('Welcome to Holberton School, what is your name?');
+// using express for nodejs
+const express = require('express');
 
-// Read user input
-process.stdin.setEncoding('utf8');
+// Create the Express app
+const app = express();
 
-// Listen for data(user input)
-process.stdin.on('data', (input) => {
-  // remove any trailing newline character from the input
-  const name = input.trim();
-
-  // DIsplay the user name
-  console.log(`Your name is ${name}`);
-
-  // End the process
-  process.stdin.end();
+// Define a route for the root path
+app.get('/', (req, res) => {
+  res.send('Hello Holberton School!');
 });
 
-// listen for the end event to display closing message
-process.stdin.on('end', () => {
-  console.log('This important software is now closing');
+// Start the server on port 1245
+const port = 1245;
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}/`);
 });

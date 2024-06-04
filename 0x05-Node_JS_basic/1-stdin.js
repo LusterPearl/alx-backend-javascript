@@ -10,11 +10,7 @@ process.stdin.on('data', (input) => {
   const name = input.trim();
 
   // DIsplay the user name
-  console.log(`Your name is ${name}`);
-
-  // End the process
-  process.stdin.end();
-});
+  console.log(`Your name is: ${name}`);
 
 // listen for the end event to display closing message
 process.stdin.on('end', () => {

@@ -3,5 +3,5 @@ function displayMessage(message) {
   console.log(message);
 }
 
-// Export the function 
+// Export the function
 module.exports = displayMessage;

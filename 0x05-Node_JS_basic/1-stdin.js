@@ -12,6 +12,10 @@ process.stdin.on('data', (input) => {
   // DIsplay the user name
   console.log(`Your name is: ${name}`);
 
+  // End the process
+  process.stdin.end();
+});
+
 // listen for the end event to display closing message
 process.stdin.on('end', () => {
   console.log('This important software is now closing');

@@ -1,7 +1,6 @@
 const http = require('http');
-const url = require('url');
 const countStudents = require('./3-read_file_async');
-const { config } = require('../webpack.config');
+const url = require('url');
 
 // Define the port to listen on
 const port = 1245;
@@ -11,11 +10,11 @@ const app = http.createServer((req, res) => {
   const reqUrl = url.parse(req.url, true);
 
   if (reqUrl.pathname === '/') {
-    // Respond with hello holberton school
+    // Respond with "Hello Holberton School!" for the root path
     res.writeHead(200, { 'Content-Type': 'text/plain' });
     res.end('Hello Holberton School!');
   } else if (reqUrl.pathname === '/students') {
-    // respond with the list of student
+    // Respond with the list of students for the "/students" path
     const database = process.argv[2];
 
     countStudents(database)
@@ -25,8 +24,12 @@ const app = http.createServer((req, res) => {
       })
       .catch((error) => {
         res.writeHead(500, { 'Content-Type': 'text/plain' });
-        res.end('Not Found');
+        res.end(error.message);
       });
+  } else {
+    // Handle other paths
+    res.writeHead(404, { 'Content-Type': 'text/plain' });
+    res.end('Not Found');
   }
 });
 

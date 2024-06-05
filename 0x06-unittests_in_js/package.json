@@ -27,12 +27,8 @@
     "nodemon": "^2.0.2",
     "request": "^2.88.0",
     "sinon": "^7.5.0"
-<<<<<<< HEAD
-  }
-=======
   },
   "scripts": {
     "test": "mocha"
   } 
->>>>>>> b5dd66dca75dc34d3bfa4d9b7a97002b1f8fcc8f
 }

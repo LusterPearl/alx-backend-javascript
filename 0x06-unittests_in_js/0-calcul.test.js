@@ -1,7 +1,7 @@
 const assert = require('assert');
 const calculateNumber = require('./0-calcul');
 
-console.log(calculateNumber); // Optional: For debugging, to check if calculateNumber is imported correctly
+console.log(calculateNumber);
 
 describe('calculateNumber', () => {
   it('should round the numbers and return their sum', () => {

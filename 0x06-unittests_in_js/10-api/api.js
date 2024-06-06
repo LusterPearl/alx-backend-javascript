@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-
 const app = express();
+
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
@@ -9,7 +9,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/cart/:id(\\d+)', (req, res) => {
-  const { id } = req.params;
+  const id = req.params.id;
   res.send(`Payment methods for cart ${id}`);
 });
 
@@ -23,7 +23,7 @@ app.get('/available_payments', (req, res) => {
 });
 
 app.post('/login', (req, res) => {
-  const { userName } = req.body;
+  const userName = req.body.userName;
   res.send(`Welcome ${userName}`);
 });
 

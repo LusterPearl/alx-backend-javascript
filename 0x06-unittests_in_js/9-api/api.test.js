@@ -1,21 +1,50 @@
-const request = require('supertest');
-const app = require('./api'); // Assuming your Express app is exported from api.js
+const request = require('request');
+const { expect } = require('chai');
+const app = require('./api'); // Import the app for testing
+
+describe('Index page', () => {
+  const baseUrl = 'http://localhost:7865';
+
+  before((done) => {
+    app.listen(7865, done); // Start the server before running tests
+  });
+
+  it('Correct status code?', (done) => {
+    request.get(baseUrl, (err, res, body) => {
+      expect(res.statusCode).to.equal(200);
+      done();
+    });
+  });
+
+  it('Correct result?', (done) => {
+    request.get(baseUrl, (err, res, body) => {
+      expect(body).to.equal('Welcome to the payment system');
+      done();
+    });
+  });
+});
 
 describe('Cart page', () => {
-  it('returns correct status code when :id is a number', async () => {
-    const response = await request(app).get('/cart/12');
-    expect(response.status).toEqual(200);
+  const baseUrl = 'http://localhost:7865/cart';
+
+  it('Correct status code when :id is a number?', (done) => {
+    request.get(`${baseUrl}/12`, (err, res, body) => {
+      expect(res.statusCode).to.equal(200);
+      done();
+    });
   });
 
-  it('returns correct result when :id is a number', async () => {
-    const response = await request(app).get('/cart/12');
-    expect(response.text).toEqual('Payment methods for cart 12');
+  it('Correct result when :id is a number?', (done) => {
+    request.get(`${baseUrl}/12`, (err, res, body) => {
+      expect(body).to.equal('Payment methods for cart 12');
+      done();
+    });
   });
 
-  it('returns correct status code when :id is NOT a number', async () => {
-    const response = await request(app).get('/cart/hello');
-    expect(response.status).toEqual(404);
+  it('Correct status code when :id is NOT a number?', (done) => {
+    request.get(`${baseUrl}/hello`, (err, res, body) => {
+      expect(res.statusCode).to.equal(404);
+      done();
+    });
   });
-
-  // Add more tests as needed
 });

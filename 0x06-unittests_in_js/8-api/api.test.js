@@ -1,37 +1,14 @@
-// api.test.js
-const chai = require('chai');
-const chaiHttp = require('chai-http');
-const { expect } = chai;
-const server = require('./api');  // This is your Express app
+const { expect } = require('chai');
+const request = require('request');
 
-chai.use(chaiHttp);
+const URL = 'http://localhost:7865/';
 
-describe('Index page', () => {
-  let app;
-
-  before((done) => {
-    app = server.listen(7865, () => {
-      console.log('Test server running on port 7865');
+describe('api.js', function() {
+  it('Tests the response of API', function(done) {
+    request(URL, (err, res, body) => {
+      expect(res.statusCode).to.equal(200);
+      expect(body).to.equal('Welcome to the payment system');
       done();
-    });
-  });
-
-  after((done) => {
-    app.close(() => {
-      console.log('Test server stopped');
-      done();
-    });
-  });
-
-  it('should return status 200 and correct message for GET /', (done) => {
-    chai.request(app)
-      .get('/')
-      .end((err, res) => {
-        expect(res).to.have.status(200);
-        expect(res.text).to.equal('Welcome to the payment system');
-        done();
-      });
-  });
-
-  // Add other tests here
-});
+    })
+  })
+})

@@ -1,50 +1,32 @@
-const request = require('request');
 const { expect } = require('chai');
-const app = require('./api'); // Import the app for testing
+const request = require('request');
 
-describe('Index page', () => {
-  const baseUrl = 'http://localhost:7865';
+let URL;
 
-  before((done) => {
-    app.listen(7865, done); // Start the server before running tests
-  });
-
-  it('Correct status code?', (done) => {
-    request.get(baseUrl, (err, res, body) => {
+describe('api.js', function() {
+  it('tests the response of api for /', function(done) {
+    URL = 'http://localhost:7865/';
+    request(URL, (err, res, body) => {
       expect(res.statusCode).to.equal(200);
-      done();
-    });
-  });
-
-  it('Correct result?', (done) => {
-    request.get(baseUrl, (err, res, body) => {
       expect(body).to.equal('Welcome to the payment system');
       done();
-    });
+    })
   });
-});
 
-describe('Cart page', () => {
-  const baseUrl = 'http://localhost:7865/cart';
-
-  it('Correct status code when :id is a number?', (done) => {
-    request.get(`${baseUrl}/12`, (err, res, body) => {
+  it('tests the response of api for /cart/:id(integer)', function(done) {
+    URL = 'http://localhost:7865/cart/12';
+    request(URL, (err, res, body) => {
       expect(res.statusCode).to.equal(200);
-      done();
-    });
-  });
-
-  it('Correct result when :id is a number?', (done) => {
-    request.get(`${baseUrl}/12`, (err, res, body) => {
       expect(body).to.equal('Payment methods for cart 12');
       done();
-    });
+    })
   });
 
-  it('Correct status code when :id is NOT a number?', (done) => {
-    request.get(`${baseUrl}/hello`, (err, res, body) => {
+  it('tests the response of api for /cart/:id(non-integer)', function(done) {
+    URL = 'http://localhost:7865/cart/hi';
+    request(URL, (err, res, body) => {
       expect(res.statusCode).to.equal(404);
       done();
-    });
+    })
   });
-});
+})
